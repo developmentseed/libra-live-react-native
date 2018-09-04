@@ -1,20 +1,27 @@
 import React from 'react';
-import { 
-  StyleSheet, 
-  Text, 
+import {
+  StyleSheet,
   View,
-  Button, 
-  // TouchableHighlight, 
-  // Image,
+  Button,
   Platform,
 } from 'react-native';
 
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
-import AWS from 'aws-sdk/dist/aws-sdk-react-native'
+import AWS from 'aws-sdk/dist/aws-sdk-react-native';
 
 // import MicrophoneIcon from './app/components/MicrophoneIcon';
 
-const Buffer = require('buffer').Buffer;
+const { Buffer } = require('buffer');
+
+const colorWhite = '#fff';
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colorWhite,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
 export default class App extends React.Component {
   constructor(props) {
@@ -22,7 +29,10 @@ export default class App extends React.Component {
 
     this.state = {
       isAuthorized: false,
+      isRecording: false,
     };
+
+    this.AWSregion = 'us-east-1';
   }
 
   componentDidMount() {
@@ -31,20 +41,24 @@ export default class App extends React.Component {
     });
   }
 
-  async startRecording() {    
+  async startRecording() {
     const { isAuthorized } = this.state;
     if (!isAuthorized) {
       return;
     }
 
-    const audioPath = AudioUtils.DocumentDirectoryPath + '/test.lpcm';
+    this.setState({
+      isRecording: true,
+    });
+
+    const audioPath = `${AudioUtils.DocumentDirectoryPath}/test.lpcm`;
     AudioRecorder.prepareRecordingAtPath(audioPath, {
       SampleRate: 8000,
       Channels: 1,
       AudioQuality: 'High',
       AudioEncoding: 'lpcm',
       IncludeBase64: true,
-    });   
+    });
 
     AudioRecorder.onFinished = (data) => {
       // Android callback comes in the form of a promise instead.
@@ -53,19 +67,17 @@ export default class App extends React.Component {
       }
 
       if (data.base64) {
-        this.sendToLex(data);      
+        this.sendToLex(data);
       }
-    };    
+    };
 
     try {
-      const filePath = await AudioRecorder.startRecording();
-      // arbitrarily stop recording after 1.5 seconds
-      setTimeout(this.stopRecording, 2000);
+      await AudioRecorder.startRecording();
     } catch (error) {
       console.error(error);
-    }    
+    }
   }
-  
+
   async stopRecording() {
     try {
       const filePath = await AudioRecorder.stopRecording();
@@ -73,16 +85,14 @@ export default class App extends React.Component {
       if (Platform.OS === 'android') {
         this.finishRecording(filePath);
       }
-
-      return filePath;
     } catch (error) {
       console.error(error);
-    }    
+    }
   }
 
   async sendToLex(audioData) {
-    const lexruntime = new AWS.LexRuntime({
-      region: 'us-east-1',
+    const lexRuntime = new AWS.LexRuntime({
+      region: this.AWSregion,
     });
 
     const audioBuffer = Buffer.from(audioData.base64, 'base64');
@@ -91,56 +101,48 @@ export default class App extends React.Component {
     }
 
     const params = {
-      botAlias: '$LATEST', 
+      botAlias: '$LATEST',
       botName: 'LibraLive',
       contentType: 'audio/lpcm; sample-rate=8000; sample-size-bits=16; channel-count=1; is-big-endian=false',
       inputStream: audioBuffer,
       userId: 'markboyd',
       accept: 'text/plain; charset=utf-8',
-    };      
+    };
 
-    lexruntime.postContent(params, (err, data) => {
+    lexRuntime.postContent(params, (err, data) => {
       if (err) {
-        console.log(err, err.stack); 
+        console.log(err, err.stack);
         return;
       }
 
-      console.log(data);           
-    });      
+      console.log(data);
+    });
   }
 
   finishRecording(filePath) {
+    this.setState({
+      isRecording: false,
+    });
     console.log(`Finished recording at path: ${filePath}`);
-  }  
+  }
 
   render() {
+    const { isRecording } = this.state;
+
     return (
       <View style={styles.container}>
-        <Button 
-          onPress={() => this.startRecording()}
+        <Button
+          onPress={() => {
+            if (isRecording) {
+              this.stopRecording();
+            } else {
+              this.startRecording();
+            }
+          }}
           title="Start recording"
-        >          
-        </Button>
-        <Button 
-          onPress={() => this.stopRecording()}
-          title="Stop recording"
-        >          
-        </Button>        
+        />
         {/* <MicrophoneIcon width={100} height={100} /> */}
-        {/* <Text style={styles.text}>Press the microphone to search for a satellite image of a location.</Text> */}
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    // color: '#fff',
-  },
-});
