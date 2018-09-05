@@ -3,6 +3,7 @@ package com.libralive;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.horcrux.svg.SvgPackage;
 import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.kevinresol.react_native_sound_recorder.RNSoundRecorderPackage;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeConfigPackage(),
             new SvgPackage(),
             new ReactNativeAudioPackage(),
             new RNSoundRecorderPackage()
