@@ -7,7 +7,15 @@ import {
 } from 'react-native';
 
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
+import Config from 'react-native-config';
+
 import AWS from 'aws-sdk/dist/aws-sdk-react-native';
+
+// Initialize the Amazon Cognito credentials provider
+AWS.config.region = 'us-east-1';
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+  IdentityPoolId: Config.AWS_COGNITO_IDENTITY_POOL_ID,
+});
 
 // import MicrophoneIcon from './app/components/MicrophoneIcon';
 
@@ -31,8 +39,6 @@ export default class App extends React.Component {
       isAuthorized: false,
       isRecording: false,
     };
-
-    this.AWSregion = 'us-east-1';
   }
 
   componentDidMount() {
@@ -90,10 +96,13 @@ export default class App extends React.Component {
     }
   }
 
-  async sendToLex(audioData) {
-    const lexRuntime = new AWS.LexRuntime({
-      region: this.AWSregion,
-    });
+  sendToLex(audioData) {
+    const { isRecording } = this.state;
+    if (isRecording) {
+      return;
+    }
+
+    const lexRuntime = new AWS.LexRuntime();
 
     const audioBuffer = Buffer.from(audioData.base64, 'base64');
     if (!audioBuffer) {
@@ -105,7 +114,7 @@ export default class App extends React.Component {
       botName: 'LibraLive',
       contentType: 'audio/lpcm; sample-rate=8000; sample-size-bits=16; channel-count=1; is-big-endian=false',
       inputStream: audioBuffer,
-      userId: 'markboyd',
+      userId: Config.AWS_USER_ID,
       accept: 'text/plain; charset=utf-8',
     };
 
