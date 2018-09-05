@@ -114,7 +114,7 @@ export default class App extends React.Component {
       botName: 'LibraLive',
       contentType: 'audio/lpcm; sample-rate=8000; sample-size-bits=16; channel-count=1; is-big-endian=false',
       inputStream: audioBuffer,
-      userId: Config.AWS_USER_ID,
+      userId: `LibraLexBot${Date.now()}`,
       accept: 'text/plain; charset=utf-8',
     };
 
@@ -148,7 +148,7 @@ export default class App extends React.Component {
               this.startRecording();
             }
           }}
-          title="Start recording"
+          title={`${isRecording ? 'Stop' : 'Start'} recording`}
         />
         {/* <MicrophoneIcon width={100} height={100} /> */}
       </View>
