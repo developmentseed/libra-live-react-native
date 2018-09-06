@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 
 import AWS from 'aws-sdk/dist/aws-sdk-react-native';
 import MapboxGL from '@mapbox/react-native-mapbox-gl';
+// import SphericalMercator from '@mapbox/sphericalmercator';
 
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
 import Config from 'react-native-config';
@@ -127,12 +128,12 @@ export default class HomeScreen extends Component {
 
     const lexResponse = await lexRuntime.postContent(params).promise();
     console.log(lexResponse);
-    if (!lexResponse || !lexResponse.slots || !lexResponse.slots.City) {
-      return;
-    }
+    // if (!lexResponse || !lexResponse.slots || !lexResponse.slots.City) {
+    //   return;
+    // }
 
     const geoResponse = await geocodingService.forwardGeocode({
-      query: lexResponse.slots.City,
+      query: 'San Francisco',
       limit: 1,
       countries: ['US'],
     }).send();
@@ -145,6 +146,14 @@ export default class HomeScreen extends Component {
 
     const feature = geoResponse.body.features[0];
     const { navigation } = this.props;
+
+    // const merc = new SphericalMercator({
+    //   size: 256,
+    // });
+
+    // console.log(merc.px(feature.geometry.coordinates, 12));
+    // console.log(merc.forward(feature.geometry.coordinates));
+
     navigation.push('Map', {
       centerCoords: feature.geometry.coordinates,
     });

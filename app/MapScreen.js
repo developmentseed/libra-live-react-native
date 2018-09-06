@@ -6,6 +6,7 @@ import {
 import PropTypes from 'prop-types';
 
 import MapboxGL from '@mapbox/react-native-mapbox-gl';
+import Config from 'react-native-config';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,7 +41,18 @@ export default class MapScreen extends Component {
             zoomLevel={12}
             centerCoordinate={centerCoords}
             style={styles.map}
-          />
+          >
+            <MapboxGL.RasterSource
+              id="sat"
+              tileSize={256}
+              url={Config.TILER_URL}
+            >
+              <MapboxGL.RasterLayer
+                id="satLayer"
+                sourceID="sat"
+              />
+            </MapboxGL.RasterSource>
+          </MapboxGL.MapView>
         ) }
       </View>
     );
