@@ -17,7 +17,7 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-project.xcworkspace
+*.xcworkspace
 
 # expo
 .expo/
