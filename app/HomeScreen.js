@@ -42,6 +42,30 @@ export default class HomeScreen extends Component {
     this.prepareRecorder();
   }
 
+  onAudioRecordingFinished = async (data) => {
+    // Android callback comes in the form of a promise instead.
+    if (Platform.OS === 'ios') {
+      this.finishRecording(data.audioFileURL);
+    }
+
+    const { isRecording } = this.state;
+
+    if (!isRecording && data.base64) {
+      let feature;
+      try {
+        const lexResponse = await sendAudioToLex(data);
+        console.log(lexResponse);
+        // const geoResponse = await geocodeCityInput(lexResponse.slots.City);
+        const geoResponse = await geocodeCityInput('San Francisco');
+        [feature] = geoResponse.body.features;
+      } catch (err) {
+        console.error(err);
+      }
+
+      this.showMapView(feature);
+    }
+  }
+
   finishRecording(filePath) {
     this.setState({
       isRecording: false,
@@ -59,37 +83,7 @@ export default class HomeScreen extends Component {
       IncludeBase64: true,
     });
 
-    AudioRecorder.onFinished = async (data) => {
-      // Android callback comes in the form of a promise instead.
-      if (Platform.OS === 'ios') {
-        this.finishRecording(data.audioFileURL);
-      }
-
-      if (data.base64) {
-        const feature = await this.processSpeechInput(data);
-        this.showMapView(feature);
-      }
-    };
-  }
-
-  async processSpeechInput(audioData) {
-    const { isRecording } = this.state;
-    if (isRecording) {
-      return;
-    }
-
-    let feature;
-    try {
-      const lexResponse = await sendAudioToLex(audioData);
-      console.log(lexResponse);
-      // const geoResponse = await geocodeCityInput(lexResponse.slots.City);
-      const geoResponse = await geocodeCityInput('San Francisco');
-      [feature] = geoResponse.body.features;
-    } catch (err) {
-      console.error(err);
-    }
-
-    return feature;
+    AudioRecorder.onFinished = this.onAudioRecordingFinished;
   }
 
   showMapView(feature) {

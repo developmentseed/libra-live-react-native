@@ -7,7 +7,7 @@ export const sendAudioToLex = async (audioData) => {
 
   const audioBuffer = Buffer.from(audioData.base64, 'base64');
   if (!audioBuffer) {
-    throw new Error('Could not interpret speech input');
+    throw new Error('Could not process speech input');
   }
 
   const params = {
