@@ -52,8 +52,10 @@ export default class HomeScreen extends Component {
 
     if (!isRecording && data.base64) {
       let feature;
+      let lexResponse;
+
       try {
-        const lexResponse = await sendAudioToLex(data);
+        lexResponse = await sendAudioToLex(data);
         console.log(lexResponse);
         // const geoResponse = await geocodeCityInput(lexResponse.slots.City);
         const geoResponse = await geocodeCityInput('San Francisco');
@@ -62,7 +64,10 @@ export default class HomeScreen extends Component {
         console.error(err);
       }
 
-      this.showMapView(feature);
+      // this.showMapView(feature, lexResponse.slots);
+      this.showMapView(feature, {
+        CloudPercentage: 0,
+      });
     }
   }
 
@@ -86,7 +91,7 @@ export default class HomeScreen extends Component {
     AudioRecorder.onFinished = this.onAudioRecordingFinished;
   }
 
-  showMapView(feature) {
+  showMapView(feature, lexSlotValues) {
     if (!feature) {
       // Show a message that location could not be found?
       return;
@@ -96,6 +101,7 @@ export default class HomeScreen extends Component {
 
     navigation.push('Map', {
       centerCoords: feature.geometry.coordinates,
+      lexSlotValues,
     });
   }
 
