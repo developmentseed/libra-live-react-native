@@ -1,5 +1,7 @@
 import AWS from 'aws-sdk/dist/aws-sdk-react-native';
 
+const { Buffer } = require('buffer');
+
 export const sendAudioToLex = async (audioData) => {
   const lexRuntime = new AWS.LexRuntime();
 
