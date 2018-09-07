@@ -4,6 +4,7 @@ import {
   View,
   Button,
   Platform,
+  Text,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -57,6 +58,12 @@ export default class HomeScreen extends Component {
       try {
         lexResponse = await sendAudioToLex(data);
         console.log(lexResponse);
+
+        if (lexResponse.dialogState === 'ElicitIntent' || !lexResponse.slots) {
+          this.setStatusMessage(lexResponse.message);
+          return;
+        }
+
         const geoResponse = await geocodeCityInput(lexResponse.slots.City);
         // const geoResponse = await geocodeCityInput('San Francisco');
         [feature] = geoResponse.body.features;
@@ -69,6 +76,12 @@ export default class HomeScreen extends Component {
       //   CloudPercentage: 0,
       // });
     }
+  }
+
+  setStatusMessage(message) {
+    this.setState({
+      statusMessage: message,
+    });
   }
 
   finishRecording(filePath) {
@@ -113,6 +126,7 @@ export default class HomeScreen extends Component {
 
     this.setState({
       isRecording: true,
+      statusMessage: null,
     });
 
     try {
@@ -135,7 +149,7 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-    const { isRecording } = this.state;
+    const { isRecording, statusMessage } = this.state;
 
     return (
       <View style={styles.container}>
@@ -149,6 +163,9 @@ export default class HomeScreen extends Component {
           }}
           title={`${isRecording ? 'Stop' : 'Start'} recording`}
         />
+        { statusMessage && (
+          <Text>{ statusMessage }</Text>
+        )}
         {/* <MicrophoneIcon width={100} height={100} /> */}
       </View>
     );
