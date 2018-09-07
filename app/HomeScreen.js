@@ -57,17 +57,17 @@ export default class HomeScreen extends Component {
       try {
         lexResponse = await sendAudioToLex(data);
         console.log(lexResponse);
-        // const geoResponse = await geocodeCityInput(lexResponse.slots.City);
-        const geoResponse = await geocodeCityInput('San Francisco');
+        const geoResponse = await geocodeCityInput(lexResponse.slots.City);
+        // const geoResponse = await geocodeCityInput('San Francisco');
         [feature] = geoResponse.body.features;
       } catch (err) {
         console.error(err);
       }
 
-      // this.showMapView(feature, lexResponse.slots);
-      this.showMapView(feature, {
-        CloudPercentage: 0,
-      });
+      this.showMapView(feature, lexResponse.slots);
+      // this.showMapView(feature, {
+      //   CloudPercentage: 0,
+      // });
     }
   }
 

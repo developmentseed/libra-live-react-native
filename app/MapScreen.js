@@ -14,14 +14,6 @@ const bandCombinations = {
   natural: 'red,green,blue',
   vegetationHealth: 'nir,swir16,blue',
   landWater: 'nir,swir16,red',
-  // { label: 'Natural Color (actual RGB)', value: 'red,green,blue' },
-  // { label: 'False Color (urban)', value: 'swir22,swir16,red' },
-  // { label: 'Agriculture', value: 'nir,red,green' },
-  // { label: 'Atmospheric Penetration', value: 'swir22,swir16,nir' },
-  // { label: 'Healthy Vegetation', value: 'nir,swir16,blue' },
-  // { label: 'Land/Water', value: 'nir,swir16,red' },
-  // { label: 'Natural With Atmospheric Removal', value: 'swir22,nir,green' },
-  // { label: 'Vegetation Analysis', value: 'swir16,nir,red' }
 };
 
 const styles = StyleSheet.create({
@@ -65,7 +57,12 @@ export default class MapScreen extends Component {
       tileQueryParams['eo:coverage'] = lexSlotValues.CloudPercentage;
     }
 
-    const bandType = 'natural';
+    let bandType = 'natural';
+    if (lexSlotValues.VegetationHealth) {
+      bandType = 'vegetationHealth';
+    } else if (lexSlotValues.LandWaterAnalysis) {
+      bandType = 'landWater';
+    }
     tileQueryParams['eo:bands'] = bandCombinations[bandType];
 
     this.setState({
