@@ -1,27 +1,52 @@
 import React, { Component } from 'react';
 import {
+  Dimensions,
   StyleSheet,
   View,
   Button,
   Platform,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
+import { Header } from 'react-navigation';
 
-// import MicrophoneIcon from './app/components/MicrophoneIcon';
+import MicrophoneIcon from './components/MicrophoneIcon';
+import CircleRadialGradient from './components/CircleRadialGradient';
 
 import { geocodeCityInput } from './services/geocoding';
 import { sendAudioToLex } from './services/lex';
 
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
 const colorWhite = '#fff';
+const colorBlack = '#000';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colorWhite,
+    backgroundColor: colorBlack,
+    // backgroundColor: colorWhite,
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'relative',
+  },
+  radialBgContainer: {
+    position: 'absolute',
+    top: (screenHeight - Header.HEIGHT - screenWidth) / 2,
+    left: 0,
+  },
+  microphoneBg: {
+    backgroundColor: colorWhite,
+    borderRadius: 50,
+    width: 100,
+    height: 100,
+    alignItems: 'center',
+  },
+  text: {
+    color: colorWhite,
   },
 });
 
@@ -153,7 +178,13 @@ export default class HomeScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <Button
+        <View style={styles.radialBgContainer}>
+          <CircleRadialGradient
+            width={screenWidth}
+            height={screenWidth}
+          />
+        </View>
+        {/* <Button
           onPress={() => {
             if (isRecording) {
               this.stopRecording();
@@ -162,11 +193,22 @@ export default class HomeScreen extends Component {
             }
           }}
           title={`${isRecording ? 'Stop' : 'Start'} recording`}
-        />
+        /> */}
+        <TouchableOpacity
+          onPress={() => {
+            if (isRecording) {
+              this.stopRecording();
+            } else {
+              this.startRecording();
+            }
+          }}
+          style={styles.microphoneBg}
+        >
+          <MicrophoneIcon width={60} height={100} />
+        </TouchableOpacity>
         { statusMessage && (
-          <Text>{ statusMessage }</Text>
+          <Text style={styles.text}>{ statusMessage }</Text>
         )}
-        {/* <MicrophoneIcon width={100} height={100} /> */}
       </View>
     );
   }
