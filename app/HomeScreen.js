@@ -24,11 +24,12 @@ const screenHeight = Dimensions.get('window').height;
 
 const colorWhite = '#fff';
 const colorBlack = '#000';
+const micInactiveShadow = '#4AE2D6';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colorBlack,
-    // backgroundColor: colorWhite,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
@@ -44,6 +45,11 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     alignItems: 'center',
+    elevation: 1,
+    shadowOffset: { width: 0, height: 0 },
+    shadowColor: micInactiveShadow,
+    shadowOpacity: 1,
+    shadowRadius: 31,
   },
   text: {
     color: colorWhite,
