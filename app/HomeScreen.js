@@ -3,7 +3,6 @@ import {
   Dimensions,
   StyleSheet,
   View,
-  Button,
   Platform,
   Text,
   TouchableOpacity,
@@ -11,7 +10,6 @@ import {
 import PropTypes from 'prop-types';
 
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
-import { Header } from 'react-navigation';
 
 import MicrophoneIcon from './components/MicrophoneIcon';
 import CircleRadialGradient from './components/CircleRadialGradient';
@@ -25,6 +23,7 @@ const screenHeight = Dimensions.get('window').height;
 const colorWhite = '#fff';
 const colorBlack = '#000';
 const micInactiveShadow = '#4AE2D6';
+const recordIconBg = 'red';
 
 const styles = StyleSheet.create({
   container: {
@@ -36,27 +35,42 @@ const styles = StyleSheet.create({
   },
   radialBgContainer: {
     position: 'absolute',
-    top: (screenHeight - Header.HEIGHT - screenWidth) / 2,
+    top: (screenHeight - screenWidth) / 2,
     left: 0,
   },
-  microphoneBg: {
+  buttonContainer: {
     backgroundColor: colorWhite,
-    borderRadius: 50,
-    width: 100,
-    height: 100,
+    borderRadius: 65,
+    width: 130,
+    height: 130,
     alignItems: 'center',
     elevation: 1,
+    padding: 15,
     shadowOffset: { width: 0, height: 0 },
     shadowColor: micInactiveShadow,
     shadowOpacity: 1,
     shadowRadius: 31,
   },
-  text: {
+  recordIcon: {
+    backgroundColor: recordIconBg,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginTop: 25,
+  },
+  statusMessage: {
+    position: 'absolute',
+    bottom: 40,
     color: colorWhite,
+    fontSize: 18,
   },
 });
 
 export default class HomeScreen extends Component {
+  static navigationOptions = {
+    header: null,
+  };
+
   constructor(props) {
     super(props);
 
@@ -179,6 +193,14 @@ export default class HomeScreen extends Component {
     }
   }
 
+  renderRecordingIcon() {
+    const { isRecording } = this.state;
+    if (isRecording) {
+      return <View style={styles.recordIcon} />;
+    }
+    return <MicrophoneIcon width={60} height={100} />;
+  }
+
   render() {
     const { isRecording, statusMessage } = this.state;
 
@@ -190,16 +212,6 @@ export default class HomeScreen extends Component {
             height={screenWidth}
           />
         </View>
-        {/* <Button
-          onPress={() => {
-            if (isRecording) {
-              this.stopRecording();
-            } else {
-              this.startRecording();
-            }
-          }}
-          title={`${isRecording ? 'Stop' : 'Start'} recording`}
-        /> */}
         <TouchableOpacity
           onPress={() => {
             if (isRecording) {
@@ -208,12 +220,12 @@ export default class HomeScreen extends Component {
               this.startRecording();
             }
           }}
-          style={styles.microphoneBg}
+          style={styles.buttonContainer}
         >
-          <MicrophoneIcon width={60} height={100} />
+          { this.renderRecordingIcon() }
         </TouchableOpacity>
         { statusMessage && (
-          <Text style={styles.text}>{ statusMessage }</Text>
+          <Text style={styles.statusMessage}>{ statusMessage }</Text>
         )}
       </View>
     );
