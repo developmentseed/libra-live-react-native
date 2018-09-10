@@ -6,6 +6,7 @@ import {
   Platform,
   Text,
   TouchableOpacity,
+  Animated,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     shadowColor: micInactiveShadow,
     shadowOpacity: 1,
-    shadowRadius: 31,
+    // shadowRadius: 31,
   },
   recordIcon: {
     backgroundColor: recordIconBg,
@@ -77,6 +78,7 @@ export default class HomeScreen extends Component {
     this.state = {
       isAuthorized: false,
       isRecording: false,
+      buttonShadowRadius: new Animated.Value(31),
     };
   }
 
@@ -164,7 +166,7 @@ export default class HomeScreen extends Component {
   }
 
   async startRecording() {
-    const { isAuthorized } = this.state;
+    const { buttonShadowRadius, isAuthorized } = this.state;
     if (!isAuthorized) {
       return;
     }
@@ -173,6 +175,14 @@ export default class HomeScreen extends Component {
       isRecording: true,
       statusMessage: null,
     });
+
+    Animated.timing(
+      buttonShadowRadius,
+      {
+        toValue: 10,
+        duration: 500,
+      },
+    ).start();
 
     try {
       await AudioRecorder.startRecording();
@@ -202,7 +212,7 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-    const { isRecording, statusMessage } = this.state;
+    const { buttonShadowRadius, isRecording, statusMessage } = this.state;
 
     return (
       <View style={styles.container}>
@@ -220,9 +230,15 @@ export default class HomeScreen extends Component {
               this.startRecording();
             }
           }}
-          style={styles.buttonContainer}
+          style={[styles.buttonContainer]}
         >
-          { this.renderRecordingIcon() }
+          <Animated.View
+            style={{
+              shadowRadius: buttonShadowRadius,
+            }}
+          >
+            { this.renderRecordingIcon() }
+          </Animated.View>
         </TouchableOpacity>
         { statusMessage && (
           <Text style={styles.statusMessage}>{ statusMessage }</Text>
