@@ -19,6 +19,13 @@ DerivedData
 *.xcuserstate
 *.xcworkspace
 
+# Android/IntelliJ
+build/
+.idea
+.gradle
+local.properties
+*.iml
+
 # expo
 .expo/
 
@@ -35,3 +42,5 @@ DerivedData
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.idea

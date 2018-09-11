@@ -5,6 +5,8 @@ import AWS from 'aws-sdk/dist/aws-sdk-react-native';
 
 import App from './App';
 
+console.log('config', Config)
+
 MapboxGL.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
 
 // Initialize the Amazon Cognito credentials provider
