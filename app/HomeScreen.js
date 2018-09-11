@@ -24,7 +24,7 @@ const screenHeight = Dimensions.get('window').height;
 const colorWhite = '#fff';
 const colorBlack = '#000';
 const micInactiveShadow = '#4AE2D6';
-const recordIconBg = 'red';
+const micActiveShadow = '#CD50E7';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,15 +48,8 @@ const styles = StyleSheet.create({
     elevation: 1,
     padding: 15,
     shadowOffset: { width: 0, height: 0 },
-    shadowColor: micInactiveShadow,
+    // shadowColor: micInactiveShadow,
     shadowOpacity: 1,
-  },
-  recordIcon: {
-    backgroundColor: recordIconBg,
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginTop: 25,
   },
   statusMessage: {
     position: 'absolute',
@@ -77,7 +70,7 @@ export default class HomeScreen extends Component {
     this.state = {
       isAuthorized: false,
       isRecording: false,
-      buttonShadowRadius: new Animated.Value(31),
+      animatedShadowRadius: new Animated.Value(31),
     };
   }
 
@@ -152,11 +145,11 @@ export default class HomeScreen extends Component {
   }
 
   prepareRecordingAnimation() {
-    const { buttonShadowRadius } = this.state;
+    const { animatedShadowRadius } = this.state;
 
     const animatedShadowFrames = [5, 10, 15, 8, 12, 18, 10, 7];
     const animations = animatedShadowFrames.map(radiusValue => Animated.timing(
-      buttonShadowRadius,
+      animatedShadowRadius,
       {
         toValue: radiusValue,
         duration: 200,
@@ -202,8 +195,22 @@ export default class HomeScreen extends Component {
   }
 
   async stopRecording() {
-    this.recordingAnimation.stop();
+    const { animatedShadowRadius } = this.state;
+
+    const test = Animated.timing(
+      animatedShadowRadius,
+      {
+        toValue: 31,
+        duration: 200,
+        useNativeDriver: true,
+      },
+    );
+
+    this.recordingAnimation.stop(() => {
+      test.start();
+    });
     this.recordingAnimation.reset();
+
     this.finishRecording();
     // try {
     //   const filePath = await AudioRecorder.stopRecording();
@@ -217,7 +224,7 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-    const { buttonShadowRadius, isRecording, statusMessage } = this.state;
+    const { animatedShadowRadius, isRecording, statusMessage } = this.state;
 
     return (
       <View style={styles.container}>
@@ -238,7 +245,8 @@ export default class HomeScreen extends Component {
         >
           <Animated.View
             style={[styles.buttonContainer, {
-              shadowRadius: buttonShadowRadius,
+              shadowColor: isRecording ? micActiveShadow : micInactiveShadow,
+              shadowRadius: animatedShadowRadius,
             }]}
           >
             <MicrophoneIcon width={60} height={100} />
