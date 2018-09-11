@@ -151,6 +151,22 @@ export default class HomeScreen extends Component {
     AudioRecorder.onFinished = this.onAudioRecordingFinished;
   }
 
+  prepareRecordingAnimation() {
+    const { buttonShadowRadius } = this.state;
+
+    const animatedShadowFrames = [5, 10, 15, 8, 12, 18, 10, 7];
+    const animations = animatedShadowFrames.map(radiusValue => Animated.timing(
+      buttonShadowRadius,
+      {
+        toValue: radiusValue,
+        duration: 200,
+        useNativeDriver: true,
+      },
+    ));
+
+    this.recordingAnimation = Animated.loop(Animated.sequence(animations));
+  }
+
   showMapView(feature, lexSlotValues) {
     if (!feature) {
       // Show a message that location could not be found?
@@ -185,24 +201,10 @@ export default class HomeScreen extends Component {
     // }
   }
 
-  prepareRecordingAnimation() {
-    const { buttonShadowRadius } = this.state;
-
-    const animatedShadowFrames = [5, 10, 15, 8, 12, 18, 10, 7];
-    const animations = animatedShadowFrames.map(radiusValue => Animated.timing(
-      buttonShadowRadius,
-      {
-        toValue: radiusValue,
-        duration: 200,
-        useNativeDriver: true,
-      },
-    ));
-
-    this.recordingAnimation = Animated.loop(Animated.sequence(animations));
-  }
-
   async stopRecording() {
     this.recordingAnimation.stop();
+    this.recordingAnimation.reset();
+    this.finishRecording();
     // try {
     //   const filePath = await AudioRecorder.stopRecording();
 
