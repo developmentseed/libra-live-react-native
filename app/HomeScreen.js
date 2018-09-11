@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     shadowColor: micInactiveShadow,
     shadowOpacity: 1,
-    // shadowRadius: 31,
   },
   recordIcon: {
     backgroundColor: recordIconBg,
@@ -87,6 +86,7 @@ export default class HomeScreen extends Component {
       this.setState({ isAuthorized });
     });
 
+    this.prepareRecordingAnimation();
     this.prepareRecorder();
   }
 
@@ -139,7 +139,7 @@ export default class HomeScreen extends Component {
   }
 
   prepareRecorder() {
-    const audioPath = `${AudioUtils.DocumentDirectoryPath}/test.lpcm`;
+    const audioPath = `${AudioUtils.DocumentDirectoryPath}/test2.lpcm`;
     AudioRecorder.prepareRecordingAtPath(audioPath, {
       SampleRate: 8000,
       Channels: 1,
@@ -166,49 +166,52 @@ export default class HomeScreen extends Component {
   }
 
   async startRecording() {
-    const { buttonShadowRadius, isAuthorized } = this.state;
+    const { isAuthorized } = this.state;
     if (!isAuthorized) {
       return;
     }
+
+    this.recordingAnimation.start();
 
     this.setState({
       isRecording: true,
       statusMessage: null,
     });
 
-    Animated.timing(
+    // try {
+    //   await AudioRecorder.startRecording();
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  }
+
+  prepareRecordingAnimation() {
+    const { buttonShadowRadius } = this.state;
+
+    const animatedShadowFrames = [5, 10, 15, 8, 12, 18, 10, 7];
+    const animations = animatedShadowFrames.map(radiusValue => Animated.timing(
       buttonShadowRadius,
       {
-        toValue: 10,
-        duration: 500,
+        toValue: radiusValue,
+        duration: 200,
+        useNativeDriver: true,
       },
-    ).start();
+    ));
 
-    try {
-      await AudioRecorder.startRecording();
-    } catch (error) {
-      console.error(error);
-    }
+    this.recordingAnimation = Animated.loop(Animated.sequence(animations));
   }
 
   async stopRecording() {
-    try {
-      const filePath = await AudioRecorder.stopRecording();
+    this.recordingAnimation.stop();
+    // try {
+    //   const filePath = await AudioRecorder.stopRecording();
 
-      if (Platform.OS === 'android') {
-        this.finishRecording(filePath);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  renderRecordingIcon() {
-    const { isRecording } = this.state;
-    if (isRecording) {
-      return <View style={styles.recordIcon} />;
-    }
-    return <MicrophoneIcon width={60} height={100} />;
+    //   if (Platform.OS === 'android') {
+    //     this.finishRecording(filePath);
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    // }
   }
 
   render() {
@@ -230,14 +233,13 @@ export default class HomeScreen extends Component {
               this.startRecording();
             }
           }}
-          style={[styles.buttonContainer]}
         >
           <Animated.View
-            style={{
+            style={[styles.buttonContainer, {
               shadowRadius: buttonShadowRadius,
-            }}
+            }]}
           >
-            { this.renderRecordingIcon() }
+            <MicrophoneIcon width={60} height={100} />
           </Animated.View>
         </TouchableOpacity>
         { statusMessage && (
