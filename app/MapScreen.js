@@ -11,9 +11,9 @@ import queryString from 'query-string';
 import Config from 'react-native-config';
 
 const bandCombinations = {
-  natural: 'red,green,blue',
-  vegetationHealth: 'nir,swir16,blue',
-  landWater: 'nir,swir16,red',
+  natural: 'B4,B3,B2',
+  vegetationHealth: 'B5,B6,B2',
+  landWater: 'B5,B6,B4',
 };
 
 const styles = StyleSheet.create({
