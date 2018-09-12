@@ -26,6 +26,8 @@ const colorBlack = '#000';
 const micInactiveShadow = '#4AE2D6';
 const micActiveShadow = '#CD50E7';
 
+const inactiveShadowRadius = 31;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -70,7 +72,7 @@ export default class HomeScreen extends Component {
     this.state = {
       isAuthorized: false,
       isRecording: false,
-      animatedShadowRadius: new Animated.Value(31),
+      animatedShadowRadius: new Animated.Value(inactiveShadowRadius),
     };
   }
 
@@ -195,23 +197,9 @@ export default class HomeScreen extends Component {
   }
 
   async stopRecording() {
-    const { animatedShadowRadius } = this.state;
-
-    const test = Animated.timing(
-      animatedShadowRadius,
-      {
-        toValue: 31,
-        duration: 200,
-        useNativeDriver: true,
-      },
-    );
-
-    this.recordingAnimation.stop(() => {
-      test.start();
-    });
-    this.recordingAnimation.reset();
-
+    this.stopRecordingAnimation();
     this.finishRecording();
+
     // try {
     //   const filePath = await AudioRecorder.stopRecording();
 
@@ -221,6 +209,23 @@ export default class HomeScreen extends Component {
     // } catch (error) {
     //   console.error(error);
     // }
+  }
+
+  stopRecordingAnimation() {
+    const { animatedShadowRadius } = this.state;
+
+    const resetButtonShadow = Animated.timing(
+      animatedShadowRadius,
+      {
+        toValue: inactiveShadowRadius,
+        duration: 200,
+        useNativeDriver: true,
+      },
+    );
+
+    this.recordingAnimation.stop();
+    this.recordingAnimation.reset();
+    resetButtonShadow.start();
   }
 
   render() {
