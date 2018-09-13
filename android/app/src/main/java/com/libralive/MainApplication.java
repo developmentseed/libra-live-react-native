@@ -6,7 +6,6 @@ import com.facebook.react.ReactApplication;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.horcrux.svg.SvgPackage;
 import com.rnim.rn.audio.ReactNativeAudioPackage;
-import com.kevinresol.react_native_sound_recorder.RNSoundRecorderPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -31,7 +30,6 @@ public class MainApplication extends Application implements ReactApplication {
             new ReactNativeConfigPackage(),
             new SvgPackage(),
             new ReactNativeAudioPackage(),
-            new RNSoundRecorderPackage(),
             new RCTMGLPackage()
       );
     }
