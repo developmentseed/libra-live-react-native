@@ -37,10 +37,13 @@ export default class HomeScreen extends Component {
 
   componentDidMount() {
     AudioRecorder.checkAuthorizationStatus().then((isAuthorized) => {
+      console.log(isAuthorized);
       this.setState({ isAuthorized });
-    });
 
-    this.prepareRecorder();
+      if (isAuthorized) {
+        this.prepareRecorder();
+      }
+    });
   }
 
   onAudioRecordingFinished = async (data) => {
@@ -91,15 +94,21 @@ export default class HomeScreen extends Component {
     console.log(`Finished recording at path: ${filePath}`);
   }
 
-  prepareRecorder() {
+  async prepareRecorder() {
     const audioPath = `${AudioUtils.DocumentDirectoryPath}/test.lpcm`;
-    AudioRecorder.prepareRecordingAtPath(audioPath, {
-      SampleRate: 8000,
-      Channels: 1,
-      AudioQuality: 'High',
-      AudioEncoding: 'lpcm',
-      IncludeBase64: true,
-    });
+
+    try {
+      await AudioRecorder.prepareRecordingAtPath(audioPath, {
+        SampleRate: 8000,
+        Channels: 1,
+        AudioQuality: 'High',
+        AudioEncoding: 'lpcm',
+        // AudioEncoding: 'aac',
+        IncludeBase64: true,
+      });
+    } catch (err) {
+      console.log(err);
+    }
 
     AudioRecorder.onFinished = this.onAudioRecordingFinished;
   }
