@@ -115,10 +115,10 @@ export default class HomeScreen extends Component {
       const geoResponse = await geocodeCityInput(lexResponse.slots.City);
       [feature] = geoResponse.body.features;
     } catch (err) {
-      if (!lexResponse || !lexResponse.slots) {
-        this.setStatusMessage(errorMessage);
-      } else if (lexResponse.dialogState === 'ElicitIntent') {
+      if (lexResponse.dialogState === 'ElicitIntent') {
         this.setStatusMessage(lexResponse.message);
+      } else {
+        this.setStatusMessage(errorMessage);
       }
       return;
     }
@@ -169,11 +169,6 @@ export default class HomeScreen extends Component {
   }
 
   showMapView(feature, lexSlotValues) {
-    if (!feature) {
-      // Show a message that location could not be found?
-      return;
-    }
-
     const { navigation } = this.props;
 
     navigation.push('Map', {
