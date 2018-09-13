@@ -36,7 +36,7 @@ export default class HomeScreen extends Component {
   }
 
   componentDidMount() {
-    AudioRecorder.requestAuthorization().then((isAuthorized) => {
+    AudioRecorder.checkAuthorizationStatus().then((isAuthorized) => {
       this.setState({ isAuthorized });
     });
 

@@ -5,7 +5,7 @@ import AWS from 'aws-sdk/dist/aws-sdk-react-native';
 
 import App from './App';
 
-console.log('config', Config)
+console.log('config', Config);
 
 MapboxGL.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
 
@@ -15,6 +15,9 @@ AWS.config.credentials = new AWS.CognitoIdentityCredentials({
   IdentityPoolId: Config.AWS_COGNITO_IDENTITY_POOL_ID,
 });
 
-console.ignoredYellowBox = ['Remote debugger'];
+console.ignoredYellowBox = [
+  'Remote debugger',
+  'Warning: isMounted(...) is deprecated',
+];
 
 AppRegistry.registerComponent('libralive', () => App);
