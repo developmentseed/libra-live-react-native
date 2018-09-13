@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     elevation: 1,
     padding: 15,
     shadowOffset: { width: 0, height: 0 },
-    // shadowColor: micInactiveShadow,
     shadowOpacity: 1,
   },
   statusMessage: {
@@ -58,6 +57,7 @@ const styles = StyleSheet.create({
     bottom: 40,
     color: colorWhite,
     fontSize: 18,
+    textAlign: 'center',
   },
 });
 
@@ -93,31 +93,37 @@ export default class HomeScreen extends Component {
 
     const { isRecording } = this.state;
 
-    if (!isRecording && data.base64) {
-      let feature;
-      let lexResponse;
-
-      try {
-        lexResponse = await sendAudioToLex(data);
-        console.log(lexResponse);
-
-        if (lexResponse.dialogState === 'ElicitIntent' || !lexResponse.slots) {
-          this.setStatusMessage(lexResponse.message);
-          return;
-        }
-
-        const geoResponse = await geocodeCityInput(lexResponse.slots.City);
-        // const geoResponse = await geocodeCityInput('San Francisco');
-        [feature] = geoResponse.body.features;
-      } catch (err) {
-        console.error(err);
-      }
-
-      this.showMapView(feature, lexResponse.slots);
-      // this.showMapView(feature, {
-      //   CloudPercentage: 0,
-      // });
+    if (isRecording) {
+      return;
     }
+
+    const errorMessage = 'Sorry, we didn\'t understand that. Please try again';
+
+    if (!data.base64) {
+      this.setState({
+        statusMessage: errorMessage,
+      });
+      return;
+    }
+
+    let feature;
+    let lexResponse;
+
+    try {
+      lexResponse = await sendAudioToLex(data);
+      console.log(lexResponse);
+      const geoResponse = await geocodeCityInput(lexResponse.slots.City);
+      [feature] = geoResponse.body.features;
+    } catch (err) {
+      if (!lexResponse || !lexResponse.slots) {
+        this.setStatusMessage(errorMessage);
+      } else if (lexResponse.dialogState === 'ElicitIntent') {
+        this.setStatusMessage(lexResponse.message);
+      }
+      return;
+    }
+
+    this.showMapView(feature, lexResponse.slots);
   }
 
   setStatusMessage(message) {
@@ -149,8 +155,8 @@ export default class HomeScreen extends Component {
   prepareRecordingAnimation() {
     const { animatedShadowRadius } = this.state;
 
-    const animatedShadowFrames = [5, 10, 15, 8, 12, 18, 10, 7];
-    const animations = animatedShadowFrames.map(radiusValue => Animated.timing(
+    const animatedRadiusValues = [5, 10, 15, 8, 12, 18, 10, 7];
+    const animations = animatedRadiusValues.map(radiusValue => Animated.timing(
       animatedShadowRadius,
       {
         toValue: radiusValue,
@@ -189,26 +195,25 @@ export default class HomeScreen extends Component {
       statusMessage: null,
     });
 
-    // try {
-    //   await AudioRecorder.startRecording();
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      await AudioRecorder.startRecording();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async stopRecording() {
     this.stopRecordingAnimation();
-    this.finishRecording();
 
-    // try {
-    //   const filePath = await AudioRecorder.stopRecording();
+    try {
+      const filePath = await AudioRecorder.stopRecording();
 
-    //   if (Platform.OS === 'android') {
-    //     this.finishRecording(filePath);
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
+      if (Platform.OS === 'android') {
+        this.finishRecording(filePath);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   stopRecordingAnimation() {
