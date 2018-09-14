@@ -30,6 +30,12 @@ const bandCombinations = {
   landWater: 'B5,B6,B4',
 };
 
+const bandCombinationLabels = {
+  natural: 'Natural Color',
+  vegetationHealth: 'Vegetation Health',
+  landWater: 'Land/Water Analysis',
+};
+
 const colorWhite = '#fff';
 const transparentBlack = 'rgba(0, 0, 0, 0.7)';
 const micInactiveShadow = '#4AE2D6';
@@ -44,6 +50,18 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
     width: '100%',
+  },
+  header: {
+    backgroundColor: transparentBlack,
+    padding: 14,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: screenWidth,
+  },
+  headerText: {
+    color: colorWhite,
+    fontSize: 14,
   },
   microphoneButton: {
     position: 'absolute',
@@ -70,6 +88,7 @@ const styles = StyleSheet.create({
     width: screenWidth,
     height: screenHeight,
     padding: 50,
+    paddingTop: 80,
   },
   errorText: {
     color: colorWhite,
@@ -88,9 +107,14 @@ export default class MapScreen extends Component {
     ]);
     const lexSlotValues = navigation.getParam('lexSlotValues', {});
 
+    const tileQueryParamsUI = {
+      bandCombination: bandCombinationLabels.natural,
+    };
+
     this.state = {
       centerCoords,
       lexSlotValues,
+      tileQueryParamsUI,
       tileQueryString: `eo:bands=${bandCombinations.natural}`,
       isAuthorized: false,
       isRecording: false,
@@ -117,7 +141,6 @@ export default class MapScreen extends Component {
   }
 
   onAudioRecordingFinished = async (data) => {
-    this.convertLexSlotsToQueryParams();
     // Android callback comes in the form of a promise instead.
     if (Platform.OS === 'ios') {
       this.finishRecording(data.audioFileURL);
@@ -154,15 +177,17 @@ export default class MapScreen extends Component {
       return;
     }
 
-    this.showMapView(feature, lexResponse.slots);
+    this.updateMap(feature, lexResponse.slots);
+    this.convertLexSlotsToQueryParams();
   }
 
   convertLexSlotsToQueryParams() {
     const { lexSlotValues } = this.state;
+    console.log('lexSlotValues', lexSlotValues)
     const tileQueryParams = {};
 
-    const startDate = lexSlotValues.Date || '1960-01-01';
-    const endDate = moment().format('YYYY-MM-DD');
+    const startDate = '1960-01-01';
+    const endDate = lexSlotValues.Date || moment().format('YYYY-MM-DD');
     tileQueryParams.datetime = `${startDate}/${endDate}`;
 
     if (lexSlotValues.CloudPercentage) {
@@ -177,7 +202,15 @@ export default class MapScreen extends Component {
     }
     tileQueryParams['eo:bands'] = bandCombinations[bandType];
 
+    const tileQueryParamsUI = {
+      bandCombination: bandType,
+      date: endDate,
+      cloudPercentage: lexSlotValues.CloudPercentage || 0,
+    };
+
+    console.log('tileQueryParams', tileQueryParams)
     this.setState({
+      tileQueryParamsUI,
       tileQueryString: queryString.stringify(tileQueryParams),
     });
   }
@@ -218,10 +251,16 @@ export default class MapScreen extends Component {
     this.recordingAnimation = Animated.loop(Animated.sequence(animations));
   }
 
-  showMapView(feature, lexSlotValues) {
+  updateMap(feature, lexSlotValues) {
+    const { tileQueryParamsUI } = this.state;
+
     this.setState({
       centerCoords: feature.geometry.coordinates,
       lexSlotValues,
+      tileQueryParamsUI: {
+        ...tileQueryParamsUI,
+        city: feature.properties.place_name,
+      },
     });
   }
 
@@ -283,6 +322,7 @@ export default class MapScreen extends Component {
       return null;
     }
 
+    console.log('about to render raster layer', tileQueryString)
     return (
       <MapboxGL.RasterSource
         id="sat"
@@ -304,7 +344,12 @@ export default class MapScreen extends Component {
       animatedShadowRadius,
       isRecording,
       errorMessage,
+      tileQueryParamsUI,
     } = this.state;
+
+    const { bandCombination, date } = tileQueryParamsUI;
+
+    const bands = bandCombinationLabels[bandCombination];
 
     return (
       <View style={styles.container}>
@@ -322,6 +367,20 @@ export default class MapScreen extends Component {
           errorMessage && (
             <View style={[styles.errorView]}>
               <Text style={[styles.errorText]}>{errorMessage}</Text>
+            </View>
+          )
+        }
+        {
+          /* the nbsp silliness below is to appease the linter and still look right. */
+          !errorMessage && (
+            <View style={[styles.header]}>
+              <Text style={[styles.headerText]}>
+                {bands}
+                &nbsp;
+                |
+                &nbsp;
+                {date}
+              </Text>
             </View>
           )
         }
