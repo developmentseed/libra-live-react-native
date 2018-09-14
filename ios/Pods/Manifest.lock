@@ -1,4 +1,9 @@
 PODS:
+  - AppCenter/Analytics (1.9.0):
+    - AppCenter/Core
+  - AppCenter/Core (1.9.0)
+  - AppCenterReactNativeShared (1.8.1):
+    - AppCenter/Core (= 1.9.0)
   - React (0.55.4):
     - React/Core (= 0.55.4)
   - react-native-mapbox-gl (6.1.3):
@@ -44,6 +49,8 @@ PODS:
   - yoga (0.55.4.React)
 
 DEPENDENCIES:
+  - AppCenter/Analytics (~> 1.9.0)
+  - AppCenterReactNativeShared (~> 1.8.1)
   - "react-native-mapbox-gl (from `../node_modules/@mapbox/react-native-mapbox-gl`)"
   - React/Core (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -63,6 +70,11 @@ DEPENDENCIES:
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/Yoga.podspec`)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AppCenter
+    - AppCenterReactNativeShared
+
 EXTERNAL SOURCES:
   React:
     :path: "../node_modules/react-native"
@@ -72,10 +84,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga/Yoga.podspec"
 
 SPEC CHECKSUMS:
+  AppCenter: 3cf7b9387549e9703dab068793e404013e8c0cc1
+  AppCenterReactNativeShared: 3d804f256b964e040d902d1a215d7866fedae55d
   React: aa2040dbb6f317b95314968021bd2888816e03d5
   react-native-mapbox-gl: b42480060cdcc515dfa3d8e403fb4dd32466a1b9
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 7f5cd972c7a28afa0086505175dfbc3ec7043372
+PODFILE CHECKSUM: 7f8c6cff586efd9a0572b87e26b436d30b02e139
 
 COCOAPODS: 1.5.3
