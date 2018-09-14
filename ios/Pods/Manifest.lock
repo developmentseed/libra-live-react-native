@@ -2,6 +2,8 @@ PODS:
   - AppCenter/Analytics (1.9.0):
     - AppCenter/Core
   - AppCenter/Core (1.9.0)
+  - AppCenter/Crashes (1.9.0):
+    - AppCenter/Core
   - AppCenterReactNativeShared (1.8.1):
     - AppCenter/Core (= 1.9.0)
   - React (0.55.4):
@@ -50,6 +52,7 @@ PODS:
 
 DEPENDENCIES:
   - AppCenter/Analytics (~> 1.9.0)
+  - AppCenter/Crashes (~> 1.9.0)
   - AppCenterReactNativeShared (~> 1.8.1)
   - "react-native-mapbox-gl (from `../node_modules/@mapbox/react-native-mapbox-gl`)"
   - React/Core (from `../node_modules/react-native`)
@@ -90,6 +93,6 @@ SPEC CHECKSUMS:
   react-native-mapbox-gl: b42480060cdcc515dfa3d8e403fb4dd32466a1b9
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 7f8c6cff586efd9a0572b87e26b436d30b02e139
+PODFILE CHECKSUM: 8654fb76f15c35209d25ea5276f245705c343167
 
 COCOAPODS: 1.5.3
