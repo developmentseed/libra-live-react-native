@@ -105,7 +105,6 @@ export default class MapScreen extends Component {
       -77.0368707,
       38.9071923,
     ]);
-    const lexSlotValues = navigation.getParam('lexSlotValues', {});
 
     const tileQueryParamsUI = {
       bandCombination: bandCombinationLabels.natural,
@@ -113,9 +112,8 @@ export default class MapScreen extends Component {
 
     this.state = {
       centerCoords,
-      lexSlotValues,
       tileQueryParamsUI,
-      tileQueryString: `eo:bands=${bandCombinations.natural}`,
+      tileQueryString: null,
       isAuthorized: false,
       isRecording: false,
       animatedShadowRadius: new Animated.Value(inactiveShadowRadius),
@@ -168,6 +166,10 @@ export default class MapScreen extends Component {
       lexResponse = await sendAudioToLex(data);
       const geoResponse = await geocodeCityInput(lexResponse.slots.City);
       [feature] = geoResponse.body.features;
+
+      this.setState({ tileQueryString: null }, () => {
+        this.updateMap(feature, lexResponse.slots);
+      });
     } catch (err) {
       if (lexResponse && lexResponse.dialogState === 'ElicitIntent') {
         this.setErrorMessage(lexResponse.message);
@@ -176,14 +178,9 @@ export default class MapScreen extends Component {
       }
       return;
     }
-
-    this.updateMap(feature, lexResponse.slots);
-    this.convertLexSlotsToQueryParams();
   }
 
-  convertLexSlotsToQueryParams() {
-    const { lexSlotValues } = this.state;
-    console.log('lexSlotValues', lexSlotValues)
+  convertLexSlotsToQueryParams(lexSlotValues = {}) {
     const tileQueryParams = {};
 
     const startDate = '1960-01-01';
@@ -208,7 +205,6 @@ export default class MapScreen extends Component {
       cloudPercentage: lexSlotValues.CloudPercentage || 0,
     };
 
-    console.log('tileQueryParams', tileQueryParams)
     this.setState({
       tileQueryParamsUI,
       tileQueryString: queryString.stringify(tileQueryParams),
@@ -254,13 +250,10 @@ export default class MapScreen extends Component {
   updateMap(feature, lexSlotValues) {
     const { tileQueryParamsUI } = this.state;
 
+    this.convertLexSlotsToQueryParams(lexSlotValues);
+
     this.setState({
       centerCoords: feature.geometry.coordinates,
-      lexSlotValues,
-      tileQueryParamsUI: {
-        ...tileQueryParamsUI,
-        city: feature.properties.place_name,
-      },
     });
   }
 
@@ -322,7 +315,6 @@ export default class MapScreen extends Component {
       return null;
     }
 
-    console.log('about to render raster layer', tileQueryString)
     return (
       <MapboxGL.RasterSource
         id="sat"
