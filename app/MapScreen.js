@@ -31,7 +31,7 @@ const bandCombinations = {
 };
 
 const colorWhite = '#fff';
-const colorBlack = '#000';
+const transparentBlack = 'rgba(0, 0, 0, 0.7)';
 const micInactiveShadow = '#4AE2D6';
 const micActiveShadow = '#CD50E7';
 
@@ -62,6 +62,19 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 1,
   },
+  errorView: {
+    backgroundColor: transparentBlack,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: screenWidth,
+    height: screenHeight,
+    padding: 50,
+  },
+  errorText: {
+    color: colorWhite,
+    fontSize: 26,
+  },
 });
 
 export default class MapScreen extends Component {
@@ -87,7 +100,6 @@ export default class MapScreen extends Component {
   }
 
   componentDidMount() {
-    // TODO: may need to move next line
     this.convertLexSlotsToQueryParams();
 
     AudioRecorder.requestAuthorization().then((isAuthorized) => {
@@ -105,6 +117,7 @@ export default class MapScreen extends Component {
   }
 
   onAudioRecordingFinished = async (data) => {
+    this.convertLexSlotsToQueryParams();
     // Android callback comes in the form of a promise instead.
     if (Platform.OS === 'ios') {
       this.finishRecording(data.audioFileURL);
@@ -119,9 +132,8 @@ export default class MapScreen extends Component {
     const errorMessage = 'Sorry, we didn\'t understand that. Please try again';
 
     if (!data.base64) {
-      console.log('!data.base64?');
       this.setState({
-        statusMessage: errorMessage,
+        errorMessage,
       });
       return;
     }
@@ -131,11 +143,9 @@ export default class MapScreen extends Component {
 
     try {
       lexResponse = await sendAudioToLex(data);
-      console.log(lexResponse);
       const geoResponse = await geocodeCityInput(lexResponse.slots.City);
       [feature] = geoResponse.body.features;
     } catch (err) {
-      console.log(err);
       if (lexResponse && lexResponse.dialogState === 'ElicitIntent') {
         this.setErrorMessage(lexResponse.message);
       } else {
@@ -209,8 +219,6 @@ export default class MapScreen extends Component {
   }
 
   showMapView(feature, lexSlotValues) {
-    const { navigation } = this.props;
-
     this.setState({
       centerCoords: feature.geometry.coordinates,
       lexSlotValues,
@@ -223,12 +231,11 @@ export default class MapScreen extends Component {
       return;
     }
 
-    console.log('startRecording');
     this.recordingAnimation.start();
 
     this.setState({
       isRecording: true,
-      statusMessage: null,
+      errorMessage: null,
     });
 
     try {
@@ -292,7 +299,6 @@ export default class MapScreen extends Component {
   }
 
   render() {
-    console.log('MapScreen render state', this.state);
     const {
       centerCoords,
       animatedShadowRadius,
@@ -310,27 +316,34 @@ export default class MapScreen extends Component {
             style={styles.map}
           >
             {this.renderRasterLayer()}
-            <TouchableOpacity
-              style={[styles.microphoneButton]}
-              onPress={() => {
-                if (isRecording) {
-                  this.stopRecording();
-                } else {
-                  this.startRecording();
-                }
-              }}
-            >
-              <Animated.View
-                style={[styles.buttonContainer, {
-                  shadowColor: isRecording ? micActiveShadow : micInactiveShadow,
-                  shadowRadius: animatedShadowRadius,
-                }]}
-              >
-                <MicrophoneIcon width={38} height={65} />
-              </Animated.View>
-            </TouchableOpacity>
           </MapboxGL.MapView>
         ) }
+        {
+          errorMessage && (
+            <View style={[styles.errorView]}>
+              <Text style={[styles.errorText]}>{errorMessage}</Text>
+            </View>
+          )
+        }
+        <TouchableOpacity
+          style={[styles.microphoneButton]}
+          onPress={() => {
+            if (isRecording) {
+              this.stopRecording();
+            } else {
+              this.startRecording();
+            }
+          }}
+        >
+          <Animated.View
+            style={[styles.buttonContainer, {
+              shadowColor: isRecording ? micActiveShadow : micInactiveShadow,
+              shadowRadius: animatedShadowRadius,
+            }]}
+          >
+            <MicrophoneIcon width={38} height={65} />
+          </Animated.View>
+        </TouchableOpacity>
       </View>
     );
   }
