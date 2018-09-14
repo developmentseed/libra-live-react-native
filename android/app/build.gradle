@@ -138,6 +138,9 @@ android {
 }
 
 dependencies {
+    compile project(':appcenter')
+    compile project(':appcenter-analytics')
+    compile project(':@mapbox/react-native-mapbox-gl')
     compile project(':mapbox-react-native-mapbox-gl')
     compile project(':react-native-config')
     compile project(':react-native-svg')
