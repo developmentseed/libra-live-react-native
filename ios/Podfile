@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '9.0'
 
 target 'libralive' do
   pod 'AppCenter/Crashes', '~> 1.9.0'
@@ -27,7 +27,7 @@ target 'libralive' do
     'RCTNetwork',
     'RCTPushNotification',
     'RCTSettings',
-    'RCTTest',
+    # 'RCTTest',
     'RCTText',
     'RCTVibration',
     'RCTWebSocket',
@@ -37,23 +37,11 @@ target 'libralive' do
   # Mapbox
   pod 'react-native-mapbox-gl', :path => '../node_modules/@mapbox/react-native-mapbox-gl'
 
-  platform :ios, '9.0'
-  target 'libraliveTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+  # platform :ios, '9.0'
+  # target 'libraliveTests' do
+  #   inherit! :search_paths
+  #   # Pods for testing
+  # end
 
 end
 
-target 'libralive-tvOS' do
-  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
-  # use_frameworks!
-
-  # Pods for libralive-tvOS
-
-  target 'libralive-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end

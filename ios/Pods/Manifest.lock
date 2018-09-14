@@ -38,8 +38,6 @@ PODS:
     - React/Core
   - React/RCTSettings (0.55.4):
     - React/Core
-  - React/RCTTest (0.55.4):
-    - React/Core
   - React/RCTText (0.55.4):
     - React/Core
   - React/RCTVibration (0.55.4):
@@ -67,7 +65,6 @@ DEPENDENCIES:
   - React/RCTNetwork (from `../node_modules/react-native`)
   - React/RCTPushNotification (from `../node_modules/react-native`)
   - React/RCTSettings (from `../node_modules/react-native`)
-  - React/RCTTest (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
@@ -93,6 +90,6 @@ SPEC CHECKSUMS:
   react-native-mapbox-gl: b42480060cdcc515dfa3d8e403fb4dd32466a1b9
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 8654fb76f15c35209d25ea5276f245705c343167
+PODFILE CHECKSUM: df092521f7bd5eb1dce482498e1b3d7cd85cc21c
 
 COCOAPODS: 1.5.3
