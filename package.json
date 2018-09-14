@@ -22,12 +22,20 @@
     "test": "jest"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": [
+      "<rootDir>/node_modules/appcenter-crashes/test/AppCenterCrashesMock.js",
+      "<rootDir>/node_modules/appcenter-analytics/test/AppCenterAnalyticsMock.js",
+      "<rootDir>/node_modules/appcenter/test/AppCenterMock.js"
+    ]
   },
   "dependencies": {
     "@mapbox/mapbox-sdk": "^0.4.1",
     "@mapbox/react-native-mapbox-gl": "^6.1.3",
     "@mapbox/sphericalmercator": "^1.1.0",
+    "appcenter": "^1.8.1",
+    "appcenter-analytics": "^1.8.1",
+    "appcenter-crashes": "^1.8.1",
     "aws-sdk": "^2.306.0",
     "buffer": "^5.2.1",
     "moment": "^2.22.2",
