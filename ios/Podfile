@@ -11,27 +11,31 @@ target 'libralive' do
   # Pods for libralive
 
   # Flexbox Layout Manager Used By React Natve
+  pod 'DoubleConversion', podspec: '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+  pod 'Folly', podspec: '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  pod 'glog', podspec: '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga/Yoga.podspec'
 
   # React Native
   pod 'React', path: '../node_modules/react-native', subspecs: [
     # Comment out any unneeded subspecs to reduce bundle size.
     'Core',
+    'CxxBridge',
     'DevSupport',
-    'RCTActionSheet',
+    # 'RCTActionSheet',
     'RCTAnimation',
     'RCTBlob',
-    'RCTCameraRoll',
+    # 'RCTCameraRoll',
     'RCTGeolocation',
     'RCTImage',
     'RCTNetwork',
-    'RCTPushNotification',
+    # 'RCTPushNotification',
     'RCTSettings',
     # 'RCTTest',
     'RCTText',
-    'RCTVibration',
+    # 'RCTVibration',
     'RCTWebSocket',
-    'RCTLinkingIOS'
+    # 'RCTLinkingIOS'
   ]
 
   # Mapbox
