@@ -36,15 +36,16 @@
 		2DCD954D1E0B4F2C00145EB5 /* libraliveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* libraliveTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		54D84B3ED5AF4E009D558F4E /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA48BDDFB72747F383C4B368 /* libRNSVG.a */; };
+		57860DC51174453B9D5834B3 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AEB505CCA52403F8F9DA647 /* AppCenter-Config.plist */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
-		6876B5543497CEF5AB77A143 /* libPods-libralive-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 589E633617192ACED44047C4 /* libPods-libralive-tvOS.a */; };
-		772298F41F40C05B6185CAB6 /* libPods-libraliveTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 965DBA70DCF0624FAC8652CC /* libPods-libraliveTests.a */; };
 		81C487EFEB5DA635065A07DC /* libPods-libralive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 170F6A5ECE018FE0C5531FEE /* libPods-libralive.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		86B75EE0D55748B8B7A43FDC /* libAppCenterReactNativeCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D206505F1C45ADAB61345E /* libAppCenterReactNativeCrashes.a */; };
 		8D7447A2240D4066852C4A08 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F780C040367C4D13ADC7D06A /* libReactNativeConfig.a */; };
+		8EF96EF48A6245A299A43B83 /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95CBBCFB02D94F33A8C298A0 /* libAppCenterReactNativeAnalytics.a */; };
+		ACC9D8766A484D5EAF855B67 /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EBBFB1C02ED42428A2BD9DE /* libAppCenterReactNative.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B4E14A6987944565858B9FB0 /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AC6422FC1D84968AEEBF281 /* libRNSVG-tvOS.a */; };
-		B74A5A613E75FBCC3D571FB8 /* libPods-libralive-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1469C9804C0EC3D2E099F312 /* libPods-libralive-tvOSTests.a */; };
 		CC445CF418BB4B29A6E1851B /* libRNAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F13B765B6F4F968B4C3B1F /* libRNAudio.a */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +112,27 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		286E5F83214C539D0064773F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0929D5E0DA4246A2B41646A2 /* AppCenterReactNative.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C35AEC211EF91F9300931F0C;
+			remoteInfo = AppCenterReactNative;
+		};
+		286E5F86214C539D0064773F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E16D0C67FE054B4A9232ABED /* AppCenterReactNativeAnalytics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 548694001D8384E600E6685A;
+			remoteInfo = AppCenterReactNativeAnalytics;
+		};
+		286E60EC214C65FC0064773F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA15B80768F14BCF816E0A49 /* AppCenterReactNativeCrashes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5419C2701D824AA700DDF3A1;
+			remoteInfo = AppCenterReactNativeCrashes;
 		};
 		289616E72141CDC600022F00 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -363,6 +385,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* libraliveTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libraliveTests.m; sourceTree = "<group>"; };
 		041CA2B5C1DA454A995463F2 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
+		0929D5E0DA4246A2B41646A2 /* AppCenterReactNative.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNative.xcodeproj; path = ../node_modules/appcenter/ios/AppCenterReactNative.xcodeproj; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* libralive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = libralive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -380,26 +403,24 @@
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		589E633617192ACED44047C4 /* libPods-libralive-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libralive-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
-		63A34A46CB9A7E287D313C85 /* Pods-libralive-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libralive-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-libralive-tvOSTests/Pods-libralive-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6CD3EC09795C4B920AA771D2 /* Pods-libralive-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libralive-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-libralive-tvOS/Pods-libralive-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		75ECD966A6664F94848C9D05 /* RNSoundRecorder.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSoundRecorder.xcodeproj; path = "../node_modules/react-native-sound-recorder/ios/RNSoundRecorder.xcodeproj"; sourceTree = "<group>"; };
+		6EBBFB1C02ED42428A2BD9DE /* libAppCenterReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNative.a; sourceTree = "<group>"; };
+		74D206505F1C45ADAB61345E /* libAppCenterReactNativeCrashes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativeCrashes.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7AC6422FC1D84968AEEBF281 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; };
-		7E72D9B960464B14982AD314 /* libRNSoundRecorder.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSoundRecorder.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		95CBBCFB02D94F33A8C298A0 /* libAppCenterReactNativeAnalytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativeAnalytics.a; sourceTree = "<group>"; };
 		965DBA70DCF0624FAC8652CC /* libPods-libraliveTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libraliveTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9784698C65EDE9171CD2CAB6 /* Pods-libralive.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libralive.debug.xcconfig"; path = "Pods/Target Support Files/Pods-libralive/Pods-libralive.debug.xcconfig"; sourceTree = "<group>"; };
-		9AF859C655050FE4C68D2946 /* Pods-libraliveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libraliveTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-libraliveTests/Pods-libraliveTests.release.xcconfig"; sourceTree = "<group>"; };
+		9AEB505CCA52403F8F9DA647 /* AppCenter-Config.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "libralive/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		AA48BDDFB72747F383C4B368 /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B8A9D9B585714E86BB2ED701 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
 		BC7CE6222453A1F59E26E9C7 /* Pods-libralive.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libralive.release.xcconfig"; path = "Pods/Target Support Files/Pods-libralive/Pods-libralive.release.xcconfig"; sourceTree = "<group>"; };
-		C7B031F5A27031D3EC0113B1 /* Pods-libralive-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libralive-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-libralive-tvOSTests/Pods-libralive-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D452408EAFA64A0CA2A78B79 /* RNAudio.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNAudio.xcodeproj; path = "../node_modules/react-native-audio/ios/RNAudio.xcodeproj"; sourceTree = "<group>"; };
+		E16D0C67FE054B4A9232ABED /* AppCenterReactNativeAnalytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeAnalytics.xcodeproj; path = "../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics.xcodeproj"; sourceTree = "<group>"; };
 		E5F13B765B6F4F968B4C3B1F /* libRNAudio.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNAudio.a; sourceTree = "<group>"; };
-		E66934E8F7BF0DCF43FEE9FB /* Pods-libralive-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libralive-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-libralive-tvOS/Pods-libralive-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		EA15B80768F14BCF816E0A49 /* AppCenterReactNativeCrashes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeCrashes.xcodeproj; path = "../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes.xcodeproj"; sourceTree = "<group>"; };
 		F780C040367C4D13ADC7D06A /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
-		FFB9DD6860866C5B623B3883 /* Pods-libraliveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libraliveTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-libraliveTests/Pods-libraliveTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -408,7 +429,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
-				772298F41F40C05B6185CAB6 /* libPods-libraliveTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +453,9 @@
 				54D84B3ED5AF4E009D558F4E /* libRNSVG.a in Frameworks */,
 				8D7447A2240D4066852C4A08 /* libReactNativeConfig.a in Frameworks */,
 				81C487EFEB5DA635065A07DC /* libPods-libralive.a in Frameworks */,
+				8EF96EF48A6245A299A43B83 /* libAppCenterReactNativeAnalytics.a in Frameworks */,
+				ACC9D8766A484D5EAF855B67 /* libAppCenterReactNative.a in Frameworks */,
+				86B75EE0D55748B8B7A43FDC /* libAppCenterReactNativeCrashes.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,7 +472,6 @@
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
 				B4E14A6987944565858B9FB0 /* libRNSVG-tvOS.a in Frameworks */,
-				6876B5543497CEF5AB77A143 /* libPods-libralive-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,7 +480,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
-				B74A5A613E75FBCC3D571FB8 /* libPods-libralive-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,14 +602,40 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		286E5F7E214C539D0064773F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				286E5F87214C539D0064773F /* libAppCenterReactNativeAnalytics.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		286E5F80214C539D0064773F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				286E5F84214C539D0064773F /* libAppCenterReactNative.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		286E60E9214C65FC0064773F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				286E60ED214C65FC0064773F /* libAppCenterReactNativeCrashes.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		289616BC2141CDC600022F00 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				7E72D9B960464B14982AD314 /* libRNSoundRecorder.a */,
 				E5F13B765B6F4F968B4C3B1F /* libRNAudio.a */,
 				AA48BDDFB72747F383C4B368 /* libRNSVG.a */,
 				F780C040367C4D13ADC7D06A /* libReactNativeConfig.a */,
 				7AC6422FC1D84968AEEBF281 /* libRNSVG-tvOS.a */,
+				95CBBCFB02D94F33A8C298A0 /* libAppCenterReactNativeAnalytics.a */,
+				6EBBFB1C02ED42428A2BD9DE /* libAppCenterReactNative.a */,
+				74D206505F1C45ADAB61345E /* libAppCenterReactNativeCrashes.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -644,12 +691,6 @@
 			children = (
 				9784698C65EDE9171CD2CAB6 /* Pods-libralive.debug.xcconfig */,
 				BC7CE6222453A1F59E26E9C7 /* Pods-libralive.release.xcconfig */,
-				E66934E8F7BF0DCF43FEE9FB /* Pods-libralive-tvOS.debug.xcconfig */,
-				6CD3EC09795C4B920AA771D2 /* Pods-libralive-tvOS.release.xcconfig */,
-				63A34A46CB9A7E287D313C85 /* Pods-libralive-tvOSTests.debug.xcconfig */,
-				C7B031F5A27031D3EC0113B1 /* Pods-libralive-tvOSTests.release.xcconfig */,
-				FFB9DD6860866C5B623B3883 /* Pods-libraliveTests.debug.xcconfig */,
-				9AF859C655050FE4C68D2946 /* Pods-libraliveTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -678,10 +719,12 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				75ECD966A6664F94848C9D05 /* RNSoundRecorder.xcodeproj */,
 				D452408EAFA64A0CA2A78B79 /* RNAudio.xcodeproj */,
 				041CA2B5C1DA454A995463F2 /* RNSVG.xcodeproj */,
 				B8A9D9B585714E86BB2ED701 /* ReactNativeConfig.xcodeproj */,
+				E16D0C67FE054B4A9232ABED /* AppCenterReactNativeAnalytics.xcodeproj */,
+				0929D5E0DA4246A2B41646A2 /* AppCenterReactNative.xcodeproj */,
+				EA15B80768F14BCF816E0A49 /* AppCenterReactNativeCrashes.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -705,6 +748,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				636DD12CBB3F670C532F69CD /* Pods */,
 				289616BC2141CDC600022F00 /* Recovered References */,
+				9AEB505CCA52403F8F9DA647 /* AppCenter-Config.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -738,7 +782,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "libraliveTests" */;
 			buildPhases = (
-				9E74060A56F72E1072E9E9C3 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -777,7 +820,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "libralive-tvOS" */;
 			buildPhases = (
-				C36ADB5AEEB8DEB0AD5BBCD8 /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
 				2D02E4791E0B4A5D006451C7 /* Resources */,
@@ -796,7 +838,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "libralive-tvOSTests" */;
 			buildPhases = (
-				B2531148C1441EE0574D17F2 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -847,6 +888,18 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 286E5F80214C539D0064773F /* Products */;
+					ProjectRef = 0929D5E0DA4246A2B41646A2 /* AppCenterReactNative.xcodeproj */;
+				},
+				{
+					ProductGroup = 286E5F7E214C539D0064773F /* Products */;
+					ProjectRef = E16D0C67FE054B4A9232ABED /* AppCenterReactNativeAnalytics.xcodeproj */;
+				},
+				{
+					ProductGroup = 286E60E9214C65FC0064773F /* Products */;
+					ProjectRef = EA15B80768F14BCF816E0A49 /* AppCenterReactNativeCrashes.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -973,6 +1026,27 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		286E5F84214C539D0064773F /* libAppCenterReactNative.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterReactNative.a;
+			remoteRef = 286E5F83214C539D0064773F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		286E5F87214C539D0064773F /* libAppCenterReactNativeAnalytics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterReactNativeAnalytics.a;
+			remoteRef = 286E5F86214C539D0064773F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		286E60ED214C65FC0064773F /* libAppCenterReactNativeCrashes.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterReactNativeCrashes.a;
+			remoteRef = 286E60EC214C65FC0064773F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		289616E82141CDC600022F00 /* libReactNativeConfig.a */ = {
@@ -1222,6 +1296,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				57860DC51174453B9D5834B3 /* AppCenter-Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1287,60 +1362,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-libralive/Pods-libralive-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9E74060A56F72E1072E9E9C3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-libraliveTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B2531148C1441EE0574D17F2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-libralive-tvOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C36ADB5AEEB8DEB0AD5BBCD8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-libralive-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FB4CC3DF23FA2E3610B24FA9 /* [CP] Check Pods Manifest.lock */ = {
@@ -1428,7 +1449,6 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FFB9DD6860866C5B623B3883 /* Pods-libraliveTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1437,19 +1457,18 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-sound-recorder/ios",
 					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = libraliveTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1464,25 +1483,23 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9AF859C655050FE4C68D2946 /* Pods-libraliveTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-sound-recorder/ios",
 					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = libraliveTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1502,14 +1519,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-sound-recorder/ios",
 					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = libralive/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1527,14 +1548,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-sound-recorder/ios",
 					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = libralive/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1548,7 +1573,6 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E66934E8F7BF0DCF43FEE9FB /* Pods-libralive-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1561,18 +1585,17 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-sound-recorder/ios",
 					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = "libralive-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1590,7 +1613,6 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6CD3EC09795C4B920AA771D2 /* Pods-libralive-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1603,18 +1625,17 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-sound-recorder/ios",
 					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = "libralive-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1632,7 +1653,6 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 63A34A46CB9A7E287D313C85 /* Pods-libralive-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1644,18 +1664,17 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-sound-recorder/ios",
 					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = "libralive-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1673,7 +1692,6 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C7B031F5A27031D3EC0113B1 /* Pods-libralive-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1685,18 +1703,17 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-sound-recorder/ios",
 					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = "libralive-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);

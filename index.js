@@ -13,6 +13,9 @@ AWS.config.credentials = new AWS.CognitoIdentityCredentials({
   IdentityPoolId: Config.AWS_COGNITO_IDENTITY_POOL_ID,
 });
 
-console.ignoredYellowBox = ['Remote debugger'];
+console.ignoredYellowBox = [
+  'Remote debugger',
+  'Warning: isMounted(...) is deprecated',
+];
 
 AppRegistry.registerComponent('libralive', () => App);
