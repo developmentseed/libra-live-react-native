@@ -2,18 +2,18 @@ import React from 'react';
 
 import { createStackNavigator } from 'react-navigation';
 
-import HomeScreen from './app/HomeScreen';
+import AboutScreen from './app/AboutScreen';
 import MapScreen from './app/MapScreen';
 
 const RootStack = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
-  },
   Map: {
     screen: MapScreen,
   },
+  About: {
+    screen: AboutScreen,
+  },
 }, {
-  initialRouteName: 'Home',
+  initialRouteName: 'Map',
 });
 
 export default function App() {
