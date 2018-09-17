@@ -165,7 +165,7 @@ export default class MapScreen extends Component {
       console.log('lexResponse', lexResponse);
 
       if (lexResponse.slots) {
-        const geoResponse = await geocodeCityInput(lexResponse.slots.City);
+        const geoResponse = await geocodeCityInput(lexResponse.slots);
         console.log('geoResponse', geoResponse);
 
         [feature] = geoResponse.body.features;
