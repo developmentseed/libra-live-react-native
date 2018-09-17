@@ -153,9 +153,7 @@ export default class MapScreen extends Component {
     const errorMessage = 'Sorry, we didn\'t understand that. Please try again';
 
     if (!data.base64) {
-      this.setState({
-        errorMessage,
-      });
+      this.setErrorMessage(errorMessage);
       return;
     }
 
@@ -176,7 +174,6 @@ export default class MapScreen extends Component {
       } else {
         this.setErrorMessage(errorMessage);
       }
-      return;
     }
   }
 
@@ -248,8 +245,6 @@ export default class MapScreen extends Component {
   }
 
   updateMap(feature, lexSlotValues) {
-    const { tileQueryParamsUI } = this.state;
-
     this.convertLexSlotsToQueryParams(lexSlotValues);
 
     this.setState({
@@ -274,6 +269,7 @@ export default class MapScreen extends Component {
       await AudioRecorder.startRecording();
     } catch (error) {
       console.error(error);
+      this.setErrorMessage('There was a problem recording audio. Please try again.');
     }
   }
 
@@ -288,6 +284,7 @@ export default class MapScreen extends Component {
       }
     } catch (error) {
       console.error(error);
+      this.setErrorMessage('There was a problem recording audio. Please try again.');
     }
   }
 
