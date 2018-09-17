@@ -1537,6 +1537,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.developmentseed.libralive";
 				PRODUCT_NAME = libralive;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1566,6 +1567,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.developmentseed.libralive";
 				PRODUCT_NAME = libralive;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

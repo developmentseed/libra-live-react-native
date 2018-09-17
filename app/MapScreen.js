@@ -129,7 +129,6 @@ export default class MapScreen extends Component {
     });
 
     this.prepareRecordingAnimation();
-    this.prepareRecorder();
   }
 
   setErrorMessage(message) {
@@ -162,12 +161,21 @@ export default class MapScreen extends Component {
 
     try {
       lexResponse = await sendAudioToLex(data);
-      const geoResponse = await geocodeCityInput(lexResponse.slots.City);
-      [feature] = geoResponse.body.features;
 
-      this.setState({ tileQueryString: null }, () => {
-        this.updateMap(feature, lexResponse.slots);
-      });
+      console.log('lexResponse', lexResponse);
+
+      if (lexResponse.slots) {
+        const geoResponse = await geocodeCityInput(lexResponse.slots.City);
+        console.log('geoResponse', geoResponse);
+
+        [feature] = geoResponse.body.features;
+
+        this.setState({ tileQueryString: null }, () => {
+          this.updateMap(feature, lexResponse.slots);
+        });
+      } else {
+        this.setErrorMessage(lexResponse.message);
+      }
     } catch (err) {
       if (lexResponse && lexResponse.dialogState === 'ElicitIntent') {
         this.setErrorMessage(lexResponse.message);
@@ -216,7 +224,7 @@ export default class MapScreen extends Component {
   }
 
   prepareRecorder() {
-    const audioPath = `${AudioUtils.DocumentDirectoryPath}/test2.lpcm`;
+    const audioPath = `${AudioUtils.DocumentDirectoryPath}/voice-recording.lpcm`;
     AudioRecorder.prepareRecordingAtPath(audioPath, {
       SampleRate: 8000,
       Channels: 1,
@@ -258,6 +266,7 @@ export default class MapScreen extends Component {
       return;
     }
 
+    this.prepareRecorder();
     this.recordingAnimation.start();
 
     this.setState({
