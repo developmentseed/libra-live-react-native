@@ -165,6 +165,11 @@ export default class MapScreen extends Component {
       console.log('lexResponse', lexResponse);
 
       if (lexResponse.slots) {
+        if (!lexResponse.slots.City) {
+          this.setErrorMessage('Sorry, we couldn\'t understand that city. Please try again');
+          return;
+        }
+
         const geoResponse = await geocodeCityInput(lexResponse.slots);
         console.log('geoResponse', geoResponse);
 
