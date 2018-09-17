@@ -20,8 +20,8 @@ export default function MicrophoneIcon(props) {
 }
 
 MicrophoneIcon.defaultProps = {
-  width: 17,
-  height: 17,
+  width: 12,
+  height: 20,
 };
 
 MicrophoneIcon.propTypes = {
