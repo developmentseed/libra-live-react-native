@@ -193,7 +193,7 @@ export default class MapScreen extends Component {
   convertLexSlotsToQueryParams(lexSlotValues = {}) {
     const tileQueryParams = {};
 
-    const startDate = '1960-01-01';
+    const startDate = lexSlotValues.StartDate || '1960-01-01';
     const endDate = lexSlotValues.Date || moment().format('YYYY-MM-DD');
     tileQueryParams.datetime = `${startDate}/${endDate}`;
 
@@ -359,6 +359,7 @@ export default class MapScreen extends Component {
         { centerCoords && (
           <MapboxGL.MapView
             styleURL={Config.MAPBOX_STYLE_URL}
+            // styleURL={MapboxGL.StyleURL.Satellite}
             zoomLevel={10}
             centerCoordinate={centerCoords}
             style={styles.map}
