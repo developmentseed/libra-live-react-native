@@ -115,6 +115,7 @@ export default class MapScreen extends Component {
 
     this.state = {
       centerCoords,
+      nightlights: false,
       detectRoads: false,
       tileQueryParamsUI,
       tileQueryString: null,
@@ -225,6 +226,9 @@ export default class MapScreen extends Component {
     const detectRoads = lexSlotValues.DetectRoads
       && lexSlotValues.DetectRoads !== null;
 
+    const nightlights = lexSlotValues.NightLights
+      && lexSlotValues.NightLights !== null;
+
     const startDate = '1960-01-01';
     const endDate = lexSlotValues.Date || moment().format('YYYY-MM-DD');
     tileQueryParams.datetime = `${startDate}/${endDate}`;
@@ -242,6 +246,7 @@ export default class MapScreen extends Component {
     tileQueryParams['eo:bands'] = bandCombinations[bandType];
 
     this.setState({
+      nightlights,
       detectRoads,
       tileQueryParamsUI: Object.assign(tileQueryParamsUI, {
         bandCombination: bandType,
@@ -360,13 +365,14 @@ export default class MapScreen extends Component {
 
   renderRasterLayer() {
     const {
+      nightlights,
       detectRoads,
       isMapLoaded,
       tileQueryString,
       useHighResImagery,
     } = this.state;
 
-    if (useHighResImagery || !tileQueryString) {
+    if (useHighResImagery || nightlights || !tileQueryString) {
       return null;
     }
 
@@ -403,6 +409,7 @@ export default class MapScreen extends Component {
     const {
       animatedShadowRadius,
       centerCoords,
+      nightlights,
       detectRoads,
       errorMessage,
       isRecording,
@@ -413,9 +420,15 @@ export default class MapScreen extends Component {
     const { bandCombination, date, city } = tileQueryParamsUI;
 
     const bands = bandCombinationLabels[bandCombination];
-    const styleURL = (useHighResImagery || detectRoads)
-      ? MapboxGL.StyleURL.Satellite : Config.MAPBOX_STYLE_URL;
     const zoomLevel = (useHighResImagery || detectRoads) ? 16 : 10;
+
+    let styleURL = Config.MAPBOX_STYLE_URL;
+
+    if (useHighResImagery || detectRoads) {
+      styleURL = MapboxGL.StyleURL.Satellite;
+    } else if (nightlights) {
+      styleURL = Config.NIGHTLIGHTS_STYLE_URL;
+    }
 
     return (
       <View style={styles.container}>
