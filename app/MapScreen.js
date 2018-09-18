@@ -408,6 +408,7 @@ export default class MapScreen extends Component {
         { centerCoords && (
           <MapboxGL.MapView
             centerCoordinate={centerCoords}
+            minZoomLevel={8}
             onDidFinishRenderingMapFully={() => this.onDidFinishRenderingMapFully()}
             onWillStartLoadingMap={() => this.onWillStartLoadingMap()}
             ref={(ref) => { this.mapRef = ref; }}
