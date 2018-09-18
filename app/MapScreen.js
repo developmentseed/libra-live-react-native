@@ -115,12 +115,15 @@ export default class MapScreen extends Component {
 
     this.state = {
       centerCoords,
+      detectRoads: false,
       tileQueryParamsUI,
       tileQueryString: null,
       isAuthorized: false,
+      isMapLoaded: false,
       isRecording: false,
       animatedShadowRadius: new Animated.Value(inactiveShadowRadius),
       errorMessage: null,
+      useHighResImagery: false,
     };
   }
 
@@ -132,6 +135,20 @@ export default class MapScreen extends Component {
     });
 
     this.prepareRecordingAnimation();
+  }
+
+  onDidFinishRenderingMapFully() {
+    if (this.mapRef.props.styleURL === Config.MAPBOX_STYLE_URL) {
+      this.setState({
+        isMapLoaded: true,
+      });
+    }
+  }
+
+  onWillStartLoadingMap() {
+    this.setState({
+      isMapLoaded: false,
+    });
   }
 
   setErrorMessage(message) {
@@ -202,6 +219,12 @@ export default class MapScreen extends Component {
     const { tileQueryParamsUI } = this.state;
     const tileQueryParams = {};
 
+    const useHighResImagery = lexSlotValues.HighResolutionImagery
+      && lexSlotValues.HighResolutionImagery !== null;
+
+    const detectRoads = lexSlotValues.DetectRoads
+      && lexSlotValues.DetectRoads !== null;
+
     const startDate = '1960-01-01';
     const endDate = lexSlotValues.Date || moment().format('YYYY-MM-DD');
     tileQueryParams.datetime = `${startDate}/${endDate}`;
@@ -219,12 +242,14 @@ export default class MapScreen extends Component {
     tileQueryParams['eo:bands'] = bandCombinations[bandType];
 
     this.setState({
+      detectRoads,
       tileQueryParamsUI: Object.assign(tileQueryParamsUI, {
         bandCombination: bandType,
         date: endDate,
         cloudPercentage: lexSlotValues.CloudPercentage || 0,
       }),
       tileQueryString: queryString.stringify(tileQueryParams),
+      useHighResImagery,
     });
   }
 
@@ -334,22 +359,41 @@ export default class MapScreen extends Component {
   }
 
   renderRasterLayer() {
-    const { tileQueryString } = this.state;
+    const {
+      detectRoads,
+      isMapLoaded,
+      tileQueryString,
+      useHighResImagery,
+    } = this.state;
 
-    if (!tileQueryString) {
+    if (useHighResImagery || !tileQueryString) {
       return null;
+    }
+
+    const rasterLayerProps = {
+      belowLayerID: null,
+    };
+    if (isMapLoaded && !detectRoads) {
+      rasterLayerProps.belowLayerID = 'waterway-label';
+    }
+    let tilerURL;
+
+    if (detectRoads) {
+      tilerURL = Config.SKYNET_TILER_URL;
+    } else {
+      tilerURL = `${Config.TILER_URL}?${tileQueryString}`;
     }
 
     return (
       <MapboxGL.RasterSource
         id="sat"
         tileSize={256}
-        url={`${Config.TILER_URL}?${tileQueryString}`}
+        url={tilerURL}
       >
         <MapboxGL.RasterLayer
           id="satLayer"
           sourceID="sat"
-          belowLayerID="waterway-label"
+          {...rasterLayerProps}
         />
       </MapboxGL.RasterSource>
     );
@@ -357,25 +401,34 @@ export default class MapScreen extends Component {
 
   render() {
     const {
-      centerCoords,
       animatedShadowRadius,
-      isRecording,
+      centerCoords,
+      detectRoads,
       errorMessage,
+      isRecording,
       tileQueryParamsUI,
+      useHighResImagery,
     } = this.state;
 
     const { bandCombination, date, city } = tileQueryParamsUI;
 
     const bands = bandCombinationLabels[bandCombination];
+    const styleURL = (useHighResImagery || detectRoads)
+      ? MapboxGL.StyleURL.Satellite : Config.MAPBOX_STYLE_URL;
+    const zoomLevel = (useHighResImagery || detectRoads) ? 16 : 10;
 
     return (
       <View style={styles.container}>
         { centerCoords && (
           <MapboxGL.MapView
-            styleURL={Config.MAPBOX_STYLE_URL}
-            zoomLevel={10}
             centerCoordinate={centerCoords}
+            minZoomLevel={8}
+            onDidFinishRenderingMapFully={() => this.onDidFinishRenderingMapFully()}
+            onWillStartLoadingMap={() => this.onWillStartLoadingMap()}
+            ref={(ref) => { this.mapRef = ref; }}
             style={styles.map}
+            styleURL={styleURL}
+            zoomLevel={zoomLevel}
           >
             {this.renderRasterLayer()}
           </MapboxGL.MapView>
