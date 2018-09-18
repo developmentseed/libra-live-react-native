@@ -9,7 +9,7 @@ const geocodingService = mapboxGeocoding(baseClient);
 export const geocodeCityInput = async ({ City, State = '' }) => {
   // the geocoder does not respond well to `d. c.` as the state
   if (State === 'd. c.') {
-    State = 'dc'
+    State = 'dc';
   }
 
   return geocodingService.forwardGeocode({

@@ -115,6 +115,7 @@ export default class MapScreen extends Component {
 
     this.state = {
       centerCoords,
+      detectRoads: false,
       tileQueryParamsUI,
       tileQueryString: null,
       isAuthorized: false,
@@ -221,6 +222,9 @@ export default class MapScreen extends Component {
     const useHighResImagery = lexSlotValues.HighResolutionImagery
       && lexSlotValues.HighResolutionImagery !== null;
 
+    const detectRoads = lexSlotValues.DetectRoads
+      && lexSlotValues.DetectRoads !== null;
+
     const startDate = '1960-01-01';
     const endDate = lexSlotValues.Date || moment().format('YYYY-MM-DD');
     tileQueryParams.datetime = `${startDate}/${endDate}`;
@@ -238,6 +242,7 @@ export default class MapScreen extends Component {
     tileQueryParams['eo:bands'] = bandCombinations[bandType];
 
     this.setState({
+      detectRoads,
       tileQueryParamsUI: Object.assign(tileQueryParamsUI, {
         bandCombination: bandType,
         date: endDate,
@@ -354,21 +359,26 @@ export default class MapScreen extends Component {
   }
 
   renderRasterLayer() {
-    const { isMapLoaded, tileQueryString, useHighResImagery } = this.state;
+    const {
+      detectRoads,
+      isMapLoaded,
+      tileQueryString,
+      useHighResImagery,
+    } = this.state;
 
-    if (!tileQueryString) {
+    if (useHighResImagery || !tileQueryString) {
       return null;
     }
 
     const rasterLayerProps = {
       belowLayerID: null,
     };
-    if (isMapLoaded && !useHighResImagery) {
+    if (isMapLoaded && !detectRoads) {
       rasterLayerProps.belowLayerID = 'waterway-label';
     }
     let tilerURL;
 
-    if (useHighResImagery) {
+    if (detectRoads) {
       tilerURL = Config.SKYNET_TILER_URL;
     } else {
       tilerURL = `${Config.TILER_URL}?${tileQueryString}`;
@@ -391,10 +401,11 @@ export default class MapScreen extends Component {
 
   render() {
     const {
-      centerCoords,
       animatedShadowRadius,
-      isRecording,
+      centerCoords,
+      detectRoads,
       errorMessage,
+      isRecording,
       tileQueryParamsUI,
       useHighResImagery,
     } = this.state;
@@ -402,6 +413,9 @@ export default class MapScreen extends Component {
     const { bandCombination, date, city } = tileQueryParamsUI;
 
     const bands = bandCombinationLabels[bandCombination];
+    const styleURL = (useHighResImagery || detectRoads)
+      ? MapboxGL.StyleURL.Satellite : Config.MAPBOX_STYLE_URL;
+    const zoomLevel = (useHighResImagery || detectRoads) ? 16 : 10;
 
     return (
       <View style={styles.container}>
@@ -413,8 +427,8 @@ export default class MapScreen extends Component {
             onWillStartLoadingMap={() => this.onWillStartLoadingMap()}
             ref={(ref) => { this.mapRef = ref; }}
             style={styles.map}
-            styleURL={useHighResImagery ? MapboxGL.StyleURL.Satellite : Config.MAPBOX_STYLE_URL}
-            zoomLevel={useHighResImagery ? 16 : 10}
+            styleURL={styleURL}
+            zoomLevel={zoomLevel}
           >
             {this.renderRasterLayer()}
           </MapboxGL.MapView>
