@@ -388,13 +388,13 @@ export default class MapScreen extends Component {
           )
         }
         <TouchableOpacity
+          activeOpacity={1}
           style={[styles.microphoneButton]}
-          onPress={() => {
-            if (isRecording) {
-              this.stopRecording();
-            } else {
-              this.startRecording();
-            }
+          onPressIn={() => {
+            this.startRecording();
+          }}
+          onPressOut={() => {
+            this.stopRecording();
           }}
         >
           <Animated.View
