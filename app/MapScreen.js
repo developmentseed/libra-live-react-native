@@ -118,9 +118,11 @@ export default class MapScreen extends Component {
       tileQueryParamsUI,
       tileQueryString: null,
       isAuthorized: false,
+      isMapLoaded: false,
       isRecording: false,
       animatedShadowRadius: new Animated.Value(inactiveShadowRadius),
       errorMessage: null,
+      useHighResImagery: false,
     };
   }
 
@@ -132,6 +134,20 @@ export default class MapScreen extends Component {
     });
 
     this.prepareRecordingAnimation();
+  }
+
+  onDidFinishRenderingMapFully() {
+    if (this.mapRef.props.styleURL === Config.MAPBOX_STYLE_URL) {
+      this.setState({
+        isMapLoaded: true,
+      });
+    }
+  }
+
+  onWillStartLoadingMap() {
+    this.setState({
+      isMapLoaded: false,
+    });
   }
 
   setErrorMessage(message) {
@@ -202,6 +218,9 @@ export default class MapScreen extends Component {
     const { tileQueryParamsUI } = this.state;
     const tileQueryParams = {};
 
+    const useHighResImagery = lexSlotValues.HighResolutionImagery
+      && lexSlotValues.HighResolutionImagery !== null;
+
     const startDate = '1960-01-01';
     const endDate = lexSlotValues.Date || moment().format('YYYY-MM-DD');
     tileQueryParams.datetime = `${startDate}/${endDate}`;
@@ -225,6 +244,7 @@ export default class MapScreen extends Component {
         cloudPercentage: lexSlotValues.CloudPercentage || 0,
       }),
       tileQueryString: queryString.stringify(tileQueryParams),
+      useHighResImagery,
     });
   }
 
@@ -334,22 +354,36 @@ export default class MapScreen extends Component {
   }
 
   renderRasterLayer() {
-    const { tileQueryString } = this.state;
+    const { isMapLoaded, tileQueryString, useHighResImagery } = this.state;
 
     if (!tileQueryString) {
       return null;
+    }
+
+    const rasterLayerProps = {
+      belowLayerID: null,
+    };
+    if (isMapLoaded && !useHighResImagery) {
+      rasterLayerProps.belowLayerID = 'waterway-label';
+    }
+    let tilerURL;
+
+    if (useHighResImagery) {
+      tilerURL = Config.SKYNET_TILER_URL;
+    } else {
+      tilerURL = `${Config.TILER_URL}?${tileQueryString}`;
     }
 
     return (
       <MapboxGL.RasterSource
         id="sat"
         tileSize={256}
-        url={`${Config.TILER_URL}?${tileQueryString}`}
+        url={tilerURL}
       >
         <MapboxGL.RasterLayer
           id="satLayer"
           sourceID="sat"
-          belowLayerID="waterway-label"
+          {...rasterLayerProps}
         />
       </MapboxGL.RasterSource>
     );
@@ -362,6 +396,7 @@ export default class MapScreen extends Component {
       isRecording,
       errorMessage,
       tileQueryParamsUI,
+      useHighResImagery,
     } = this.state;
 
     const { bandCombination, date, city } = tileQueryParamsUI;
@@ -372,10 +407,13 @@ export default class MapScreen extends Component {
       <View style={styles.container}>
         { centerCoords && (
           <MapboxGL.MapView
-            styleURL={Config.MAPBOX_STYLE_URL}
-            zoomLevel={10}
             centerCoordinate={centerCoords}
+            onDidFinishRenderingMapFully={() => this.onDidFinishRenderingMapFully()}
+            onWillStartLoadingMap={() => this.onWillStartLoadingMap()}
+            ref={(ref) => { this.mapRef = ref; }}
             style={styles.map}
+            styleURL={useHighResImagery ? MapboxGL.StyleURL.Satellite : Config.MAPBOX_STYLE_URL}
+            zoomLevel={useHighResImagery ? 16 : 10}
           >
             {this.renderRasterLayer()}
           </MapboxGL.MapView>
