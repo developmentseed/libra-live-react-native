@@ -106,8 +106,11 @@ export default class MapScreen extends Component {
       38.9071923,
     ]);
 
+    // default params for demo
+    // TODO: consider getting user location
     const tileQueryParamsUI = {
       bandCombination: bandCombinationLabels.natural,
+      city: 'Washington D.C.',
     };
 
     this.state = {
@@ -175,6 +178,11 @@ export default class MapScreen extends Component {
 
         [feature] = geoResponse.body.features;
 
+        if (!feature || !feature.geometry) {
+          this.setErrorMessage(`${lexResponse.slots.City} not found. Please try again`);
+          return;
+        }
+
         this.setState({ tileQueryString: null }, () => {
           this.updateMap(feature, lexResponse.slots);
         });
@@ -191,6 +199,7 @@ export default class MapScreen extends Component {
   }
 
   convertLexSlotsToQueryParams(lexSlotValues = {}) {
+    const { tileQueryParamsUI } = this.state;
     const tileQueryParams = {};
 
     const startDate = '1960-01-01';
@@ -209,14 +218,12 @@ export default class MapScreen extends Component {
     }
     tileQueryParams['eo:bands'] = bandCombinations[bandType];
 
-    const tileQueryParamsUI = {
-      bandCombination: bandType,
-      date: endDate,
-      cloudPercentage: lexSlotValues.CloudPercentage || 0,
-    };
-
     this.setState({
-      tileQueryParamsUI,
+      tileQueryParamsUI: Object.assign(tileQueryParamsUI, {
+        bandCombination: bandType,
+        date: endDate,
+        cloudPercentage: lexSlotValues.CloudPercentage || 0,
+      }),
       tileQueryString: queryString.stringify(tileQueryParams),
     });
   }
@@ -258,10 +265,17 @@ export default class MapScreen extends Component {
   }
 
   updateMap(feature, lexSlotValues) {
+    const { tileQueryParamsUI } = this.state;
     this.convertLexSlotsToQueryParams(lexSlotValues);
+
+    const city = lexSlotValues.City;
+    const fallbackCityName = city.charAt(0).toUpperCase() + city.slice(1);
 
     this.setState({
       centerCoords: feature.geometry.coordinates,
+      tileQueryParamsUI: Object.assign(tileQueryParamsUI, {
+        city: feature.text || feature.place_name || fallbackCityName,
+      }),
     });
   }
 
@@ -350,7 +364,7 @@ export default class MapScreen extends Component {
       tileQueryParamsUI,
     } = this.state;
 
-    const { bandCombination, date } = tileQueryParamsUI;
+    const { bandCombination, date, city } = tileQueryParamsUI;
 
     const bands = bandCombinationLabels[bandCombination];
 
@@ -378,6 +392,10 @@ export default class MapScreen extends Component {
           !errorMessage && (
             <View style={[styles.header]}>
               <Text style={[styles.headerText]}>
+                {city}
+                &nbsp;
+                |
+                &nbsp;
                 {bands}
                 &nbsp;
                 |
