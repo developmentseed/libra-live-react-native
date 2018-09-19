@@ -420,10 +420,15 @@ export default class MapScreen extends Component {
     const { bandCombination, date, city } = tileQueryParamsUI;
 
     const bands = bandCombinationLabels[bandCombination];
-    const zoomLevel = (useHighResImagery || detectRoads) ? 16 : 10;
+
+    let zoomLevel = 10;
+    if (useHighResImagery || detectRoads) {
+      zoomLevel = 16;
+    } else if (nightlights) {
+      zoomLevel = 8;
+    }
 
     let styleURL = Config.MAPBOX_STYLE_URL;
-
     if (useHighResImagery || detectRoads) {
       styleURL = MapboxGL.StyleURL.Satellite;
     } else if (nightlights) {
